@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:db="http://www.mulesoft.org/schema/mule/db"
+	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd">
+	<flow name="whiplash-ats-flow" doc:id="bcda4c83-2788-498f-afbf-e33cd6738c9f" >
+		<scheduler doc:name="Scheduler" doc:id="9301dc69-127a-4743-b20e-9c75a312b82d" >
+			<scheduling-strategy >
+				<cron expression="${outbound.inventory.scheduler.frequency}" />
+			</scheduling-strategy>
+		</scheduler>
+		<choice doc:name="Choice" doc:id="0bc37bad-cddb-4125-a83e-f87cd032240d" >
+			<when expression="#[p('outbound.inventory.enabled') == 'true']" >
+				<db:select doc:name="Select" doc:id="a6c35081-a870-4091-a1e7-ef8527723c05" config-ref="Database_Config" maxRows="#[p('outbound.fulfillment.db.limit')]" >
+					<db:sql ><![CDATA[SELECT data FROM wmsmock_wpl_sales_order_items WHERE inventory_in_sync = 0]]></db:sql>
+				</db:select>
+				<ee:transform doc:name="Transform Message" doc:id="d3870044-83fd-4864-a34a-a91d22754d6e" >
+					<ee:message >
+						<ee:set-payload resource="dw/transformations/wpl-convert-order-to-json.dwl" />
+					</ee:message>
+				</ee:transform>
+				<logger level="DEBUG" doc:name="DEBUG: AFTER_REQUEST" doc:id="71505547-c740-43eb-b21b-433128557266" message="#[%dw 2.0&#10;import modules::CustomLoggerModule&#10;output application/json&#10;var priority = p('json.logger.priority.debug')&#10;var flowName = flow.name&#10;var tracePoint = p('json.logger.tracePoint.afterRequest')&#10;var logMessage = tracePoint ++ &quot;: Whiplash has retrieved order items for inventory&quot;&#10;---&#10;CustomLoggerModule::generateLogger(priority, flowName, tracePoint, logMessage, payload, null, correlationId, null, attributes)]" category="ck-support-debug-monitoring" />
+				<foreach doc:name="For Each" doc:id="23224e0c-dbf6-4dbe-a857-24cf7c99d81f" >
+					<flow-ref doc:name="Flow whiplash-each-ats-flow" doc:id="96a22414-c21e-4d55-9b7a-982f6ec990b5" name="whiplash-each-ats-flow" />
+				</foreach>
+				<choice doc:name="Choice" doc:id="e7236753-b98c-47f4-bb48-fd1a8eb04471">
+					<when expression="#[!isEmpty(vars.successOrderItems)]">
+						<db:bulk-update doc:name="Bulk update" doc:id="c77fdb9b-4fa7-4e0b-a02a-8d821395bc6d" config-ref="Database_Config" target="dbRes">
+					<db:bulk-input-parameters><![CDATA[#[vars.successOrderItems]]]></db:bulk-input-parameters>
+					<db:sql><![CDATA[UPDATE wmsmock_wpl_sales_order_items SET inventory_in_sync = 1 WHERE JSON_EXTRACT(data, "$.order_orig") = :order_orig AND JSON_EXTRACT(data, "$.sku") = :sku]]></db:sql>
+				</db:bulk-update>
+						<logger level="DEBUG" doc:name="DEBUG: AFTER_REQUEST" doc:id="932372b3-9148-459f-8c62-f679ca21d643" message="#[%dw 2.0&#10;import modules::CustomLoggerModule&#10;output application/json&#10;var priority = p('json.logger.priority.debug')&#10;var flowName = flow.name&#10;var tracePoint = p('json.logger.tracePoint.afterRequest')&#10;var logMessage = tracePoint ++ &quot;: Whiplash has updated order items inventory_in_sync after inventory sent&quot;&#10;---&#10;CustomLoggerModule::generateLogger(priority, flowName, tracePoint, logMessage, null, null, correlationId, null, attributes)]" category="ck-support-debug-monitoring" />
+						<logger level="INFO" doc:name="INFO: END" doc:id="6129ea97-a5ee-4a26-8c66-4357374e9627" message="#[%dw 2.0&#10;import modules::CustomLoggerModule&#10;output application/json&#10;var priority = p('json.logger.priority.info')&#10;var flowName = flow.name&#10;var tracePoint = p('json.logger.tracePoint.end')&#10;var logMessage = tracePoint ++ &quot;: Whiplash has sent a batch of ATS inventory requests&quot;&#10;---&#10;CustomLoggerModule::generateLogger(priority, flowName, tracePoint, logMessage, vars.successOrderItems, null, correlationId, {correlationId: vars.correlationId}, attributes)]" category="ck-support-info-monitoring" />
+					</when>
+				</choice>
+			</when>
+		</choice>
+	</flow>
+	<flow name="whiplash-each-ats-flow" doc:id="a6801db6-55fd-4803-8402-79132f1f0af1" >
+		<ee:transform doc:name="Set Variable - correlationId" doc:id="e6a6a8f2-61cd-4d93-a223-d6ba7be8c56a">
+			<ee:message />
+			<ee:variables>
+				<ee:set-variable resource="dw/variables/correlationId.dwl" variableName="correlationId" />
+			</ee:variables>
+		</ee:transform>
+		<ee:transform doc:name="Set Variable - orderNumber, originalOrderId, itemSku and itemQuantity" doc:id="f74ccb32-8f3f-426d-8303-dbaff00237c9">
+			<ee:message />
+			<ee:variables>
+				<ee:set-variable resource="dw/variables/wpl-orderNumber.dwl" variableName="orderNumber" />
+				<ee:set-variable resource="dw/variables/wpl-originalOrderId.dwl" variableName="originalOrderId" />
+				<ee:set-variable resource="dw/variables/wpl-itemQuantity.dwl" variableName="itemQuantity" />
+				<ee:set-variable resource="dw/variables/wpl-itemSku.dwl" variableName="itemSku" />
+			</ee:variables>
+		</ee:transform>
+		<ee:transform doc:name="Set Variable - inventoryBody and inventoryQueryParams" doc:id="59c8fdf8-aae8-4747-9e58-7e8128457f83">
+			<ee:message>
+				<ee:set-payload resource="dw/transformations/wpl-inventoryBody.dwl" />
+			</ee:message>
+			<ee:variables>
+				<ee:set-variable resource="dw/variables/wpl-inventoryQueryParams.dwl" variableName="inventoryQueryParams" />
+			</ee:variables>
+		</ee:transform>
+		<ee:transform doc:name="Set Variable - inventoryATSBody" doc:id="7ec9800d-6740-4914-8a59-ce3a1de68fb6">
+				<ee:message>
+				<ee:set-payload resource="dw/transformations/wpl-inventoryATSBody.dwl" />
+				</ee:message>
+				<ee:variables>
+				</ee:variables>
+			</ee:transform>
+		<logger level="DEBUG" doc:name="DEBUG: BEFORE_REQUEST" doc:id="ec2a1af6-a78f-48a6-8c64-2fa7565d1676" message="#[%dw 2.0&#10;import modules::CustomLoggerModule&#10;output application/json&#10;var priority = p('json.logger.priority.info')&#10;var flowName = flow.name&#10;var tracePoint = p('json.logger.tracePoint.beforeRequest')&#10;var logMessage = tracePoint ++ &quot;: Whiplash is sending an ATS inventory request - &quot; ++ (vars.orderNumber default &quot;&quot;) ++ &quot;-&quot; ++ vars.itemSku&#10;---&#10;CustomLoggerModule::generateLogger(priority, flowName, tracePoint, logMessage, payload, null, correlationId, {correlationId: vars.correlationId}, attributes)]" category="ck-support-debug-monitoring"/>
+			<http:request method="POST" doc:name="Request inventory ATS" doc:id="0cd11f49-d2a8-48ca-b68b-1b57bb91c2d9" config-ref="HTTP_Request_configuration" path="/australia/p-inventory-whip/v1/api/inventory" target="httpRes">
+			<http:headers><![CDATA[#[output application/java
+---
+{
+	"X-Correlation-ID" : vars.correlationId default ""
+}]]]></http:headers>
+			<http:query-params><![CDATA[#[vars.inventoryQueryParams]]]></http:query-params>
+		</http:request>
+		<logger level="DEBUG" doc:name="DEBUG: AFTER_REQUEST" doc:id="a4b45f98-82ec-4d5d-9f01-cd0f4088065e" message="#[%dw 2.0&#10;import modules::CustomLoggerModule&#10;output application/json&#10;var priority = p('json.logger.priority.debug')&#10;var flowName = flow.name&#10;var tracePoint = p('json.logger.tracePoint.afterRequest')&#10;var logMessage = tracePoint ++ &quot;: Whiplash has sent an ATS inventory request - &quot; ++ (vars.orderNumber default &quot;&quot;) ++ &quot;-&quot; ++ vars.itemSku&#10;---&#10;CustomLoggerModule::generateLogger(priority, flowName, tracePoint, logMessage, payload, null, correlationId, {correlationId: vars.correlationId}, attributes)]" category="ck-support-debug-monitoring"/>
+			<ee:transform doc:name="Set Variable - successOrderItems" doc:id="995afb0e-27ce-4371-bb8c-a949778f39e4" >
+			<ee:message />
+			<ee:variables >
+				<ee:set-variable resource="dw/variables/wpl-successOrderItems.dwl" variableName="successOrderItems" />
+			</ee:variables>
+		</ee:transform>
+		<error-handler >
+				<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="d253022d-44a2-435e-ba1e-5e2b1058749a" >
+					<logger level="ERROR" doc:name="ERROR: EXCEPTION" doc:id="e4d35981-4b68-46ea-9ba4-881b2b6f547f" message="#[%dw 2.0&#10;import modules::CustomLoggerModule&#10;output application/json&#10;var priority = p('json.logger.priority.error')&#10;var flowName = flow.name&#10;var tracePoint = p('json.logger.tracePoint.exception')&#10;var logMessage = tracePoint ++ &quot;: Whiplash encountered an error while sending an ATS inventory request - &quot; ++ (vars.orderNumber default &quot;&quot;) ++ &quot;-&quot; ++ vars.itemSku&#10;---&#10;CustomLoggerModule::generateLogger(priority, flowName, tracePoint, logMessage, payload, error, correlationId, {correlationId: vars.correlationId}, attributes)]" category="ck-support-error-monitoring"/>
+				</on-error-continue>
+			</error-handler>
+	</flow>
+</mule>

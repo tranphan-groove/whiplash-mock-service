@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:db="http://www.mulesoft.org/schema/mule/db"
+	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd">
+	<flow name="whiplash-status-change-flow" doc:id="2636f316-d1a7-4150-ad78-567eca7a1e16" >
+		<scheduler doc:name="Scheduler" doc:id="9797d5e0-ea86-4f34-bb09-5540e031be2d" >
+			<scheduling-strategy >
+				<cron expression="${outbound.statusChange.scheduler.frequency}" />
+			</scheduling-strategy>
+		</scheduler>
+		<choice doc:name="Choice" doc:id="7ab41458-6dfc-47a5-bef5-4eace6457c75" >
+			<when expression="#[p('outbound.statusChange.enabled') == 'true']" >
+				<db:select doc:name="Select" doc:id="ec5eca91-5922-41e1-8dcd-e73bdf652ed3" config-ref="Database_Config" maxRows="#[p('outbound.fulfillment.db.limit')]" >
+					<db:sql ><![CDATA[SELECT data FROM wmsmock_wpl_sales_order_items WHERE status_change_in_sync = 0]]></db:sql>
+				</db:select>
+				<ee:transform doc:name="Transform Message" doc:id="edfdeb33-3088-4307-9fc2-c896aea22017" >
+					<ee:message >
+						<ee:set-payload resource="dw/transformations/wpl-convert-order-to-json.dwl" />
+					</ee:message>
+				</ee:transform>
+				<logger level="DEBUG" doc:name="DEBUG: AFTER_REQUEST" doc:id="48f30e76-cb48-429e-9866-163adccc3905" message="#[%dw 2.0&#10;import modules::CustomLoggerModule&#10;output application/json&#10;var priority = p('json.logger.priority.debug')&#10;var flowName = flow.name&#10;var tracePoint = p('json.logger.tracePoint.afterRequest')&#10;var logMessage = tracePoint ++ &quot;: Whiplash has retrieved order items for status change&quot;&#10;---&#10;CustomLoggerModule::generateLogger(priority, flowName, tracePoint, logMessage, payload, null, correlationId, null, attributes)]" category="ck-support-debug-monitoring" />
+				<foreach doc:name="For Each" doc:id="908ccd83-7c89-4f96-958f-2707914457e9" >
+					<flow-ref doc:name="Flow whiplash-each-status-change-flow" doc:id="83ac4fe3-3e08-4bfa-8081-4fa7dc728c2e" name="whiplash-each-status-change-flow" />
+				</foreach>
+				<choice doc:name="Choice" doc:id="27ff2b9f-278a-4dc5-aaaa-d3615f7df6c8">
+					<when expression="#[!isEmpty(vars.successOrderItems)]">
+						<db:bulk-update doc:name="Bulk update" doc:id="fd91e2b7-0637-4c9a-8643-f339ad68f8e6" config-ref="Database_Config" target="dbRes">
+					<db:bulk-input-parameters><![CDATA[#[vars.successOrderItems]]]></db:bulk-input-parameters>
+					<db:sql><![CDATA[UPDATE wmsmock_wpl_sales_order_items SET status_change_in_sync = 1 WHERE JSON_EXTRACT(data, "$.order_orig") = :order_orig AND JSON_EXTRACT(data, "$.sku") = :sku]]></db:sql>
+				</db:bulk-update>
+						<logger level="DEBUG" doc:name="DEBUG: AFTER_REQUEST" doc:id="3a346e1e-0301-4078-bcf6-d0ca69dd8186" message="#[%dw 2.0&#10;import modules::CustomLoggerModule&#10;output application/json&#10;var priority = p('json.logger.priority.debug')&#10;var flowName = flow.name&#10;var tracePoint = p('json.logger.tracePoint.afterRequest')&#10;var logMessage = tracePoint ++ &quot;: Whiplash has updated order items status_change_in_sync after status change sent&quot;&#10;---&#10;CustomLoggerModule::generateLogger(priority, flowName, tracePoint, logMessage, null, null, correlationId, null, attributes)]" category="ck-support-debug-monitoring" />
+						<logger level="INFO" doc:name="INFO: END" doc:id="a142ead7-1413-4991-9a31-b2702af6c8d8" message="#[%dw 2.0&#10;import modules::CustomLoggerModule&#10;output application/json&#10;var priority = p('json.logger.priority.info')&#10;var flowName = flow.name&#10;var tracePoint = p('json.logger.tracePoint.end')&#10;var logMessage = tracePoint ++ &quot;: Whiplash has sent a batch of status change requests&quot;&#10;---&#10;CustomLoggerModule::generateLogger(priority, flowName, tracePoint, logMessage, vars.successOrderItems, null, correlationId, {correlationId: vars.correlationId}, attributes)]" category="ck-support-info-monitoring" />
+					</when>
+				</choice>
+			</when>
+		</choice>
+	</flow>
+	<flow name="whiplash-each-status-change-flow" doc:id="37f8bf49-166d-4cfe-a03d-d30435be49c4">
+		<ee:transform doc:name="Set Variable - correlationId" doc:id="4d77a682-c076-4dfe-b113-f850eb8deeb5">
+			<ee:message />
+			<ee:variables>
+				<ee:set-variable resource="dw/variables/correlationId.dwl" variableName="correlationId" />
+			</ee:variables>
+		</ee:transform>
+		<ee:transform doc:name="Set Variable - orderNumber, originalOrderId, orderId, itemSku and itemQuantity" doc:id="f1af9948-877c-49ec-962f-edc9bf9aefc2">
+			<ee:message />
+			<ee:variables>
+				<ee:set-variable resource="dw/variables/wpl-orderNumber.dwl" variableName="orderNumber" />
+				<ee:set-variable resource="dw/variables/wpl-originalOrderId.dwl" variableName="originalOrderId" />
+				<ee:set-variable resource="dw/variables/wpl-itemQuantity.dwl" variableName="itemQuantity" />
+				<ee:set-variable resource="dw/variables/wpl-itemSku.dwl" variableName="itemSku" />
+				<ee:set-variable resource="dw/variables/wpl-extract-orderId-from-db-record.dwl" variableName="orderId" />
+			</ee:variables>
+		</ee:transform>
+		<ee:transform doc:name="Set Variable - inventoryBody and inventoryQueryParams" doc:id="2a0f2174-7379-47d2-b5c2-26dc5874e493">
+			<ee:message>
+				<ee:set-payload resource="dw/transformations/wpl-inventoryBody.dwl" />
+			</ee:message>
+			<ee:variables>
+				<ee:set-variable resource="dw/variables/wpl-inventoryQueryParams.dwl" variableName="inventoryQueryParams" />
+			</ee:variables>
+		</ee:transform>
+		<ee:transform doc:name="Set Variable - inventoryStatusChangeBody" doc:id="fe4da152-fdc0-4af6-b487-36d34818aeb4">
+				<ee:message >
+				<ee:set-payload resource="dw/transformations/wpl-inventoryStatusChangeBody.dwl" />
+			</ee:message>
+				<ee:variables>
+				</ee:variables>
+			</ee:transform>
+		<logger level="DEBUG" doc:name="DEBUG: BEFORE_REQUEST" doc:id="6eeccce9-6f81-42c6-8026-8a63f07c473d" message="#[%dw 2.0&#10;import modules::CustomLoggerModule&#10;output application/json&#10;var priority = p('json.logger.priority.debug')&#10;var flowName = flow.name&#10;var tracePoint = p('json.logger.tracePoint.beforeRequest')&#10;var logMessage = tracePoint ++ &quot;: Whiplash is sending a status change inventory request - &quot; ++ (vars.orderNumber default &quot;&quot;) ++ &quot;-&quot; ++ vars.itemSku&#10;---&#10;CustomLoggerModule::generateLogger(priority, flowName, tracePoint, logMessage, payload, null, correlationId, {correlationId: vars.correlationId}, attributes)]" category="ck-support-debug-monitoring"/>
+			<http:request method="POST" doc:name="Request inventory status change" doc:id="c921c688-8180-40ae-8d50-ee79cf23f53f" config-ref="HTTP_Request_configuration" path="/australia/p-inventory-whip/v1/api/inventory" target="httpRes">
+			<http:headers><![CDATA[#[output application/java
+---
+{
+	"X-Correlation-ID" : vars.correlationId default ""
+}]]]></http:headers>
+			<http:query-params><![CDATA[#[vars.inventoryQueryParams]]]></http:query-params>
+		</http:request>
+		<logger level="DEBUG" doc:name="DEBUG: AFTER_REQUEST" doc:id="402769ad-3026-4ae4-bbea-789acd097925" message="#[%dw 2.0&#10;import modules::CustomLoggerModule&#10;output application/json&#10;var priority = p('json.logger.priority.debug')&#10;var flowName = flow.name&#10;var tracePoint = p('json.logger.tracePoint.afterRequest')&#10;var logMessage = tracePoint ++ &quot;: Whiplash has sent a status change inventory request - &quot; ++ (vars.orderNumber default &quot;&quot;) ++ &quot;-&quot; ++ vars.itemSku&#10;---&#10;CustomLoggerModule::generateLogger(priority, flowName, tracePoint, logMessage, payload, null, correlationId, {correlationId: vars.correlationId}, attributes)]" category="ck-support-debug-monitoring"/>
+		<ee:transform doc:name="Set Variable - successOrderItems" doc:id="1fc2a43e-98bb-4399-a0c4-06c1cc384339" >
+			<ee:message />
+			<ee:variables >
+				<ee:set-variable resource="dw/variables/wpl-successOrderItems.dwl" variableName="successOrderItems" />
+			</ee:variables>
+		</ee:transform>
+		<error-handler >
+				<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="842fab7a-4aca-4af2-a2de-ed92c19fcff4" >
+					<logger level="ERROR" doc:name="ERROR: EXCEPTION" doc:id="ff9dd597-9615-4378-8edb-fdef459c10bb" message="#[%dw 2.0&#10;import modules::CustomLoggerModule&#10;output application/json&#10;var priority = p('json.logger.priority.error')&#10;var flowName = flow.name&#10;var tracePoint = p('json.logger.tracePoint.exception')&#10;var logMessage = tracePoint ++ &quot;: Whiplash encountered an error while sending a status change inventory request - &quot; ++ (vars.orderNumber default &quot;&quot;) ++ &quot;-&quot; ++ vars.itemSku&#10;---&#10;CustomLoggerModule::generateLogger(priority, flowName, tracePoint, logMessage, payload, error, correlationId, {correlationId: vars.correlationId}, attributes)]" category="ck-support-error-monitoring"/>
+				</on-error-continue>
+			</error-handler>
+	</flow>
+</mule>
