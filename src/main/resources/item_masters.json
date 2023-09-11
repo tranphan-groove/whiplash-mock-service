@@ -1,0 +1,997 @@
+[{
+    "id": 8448,
+    "sku": "08000917B0012XL",
+    "parent_id": "08000917-YB001",
+    "variant_id": 42547124797639,
+    "variant_inventory_management": "shopify",
+    "variant_title": "2XL",
+    "vendor": "KORN",
+    "unified_model": {
+      "sku": "08000917B0012XL",
+      "name": "KORN TEE",
+      "prices": [{
+          "type": "list",
+          "value": 49.95,
+          "currency": "AUD"
+        },
+        {
+          "type": "list",
+          "value": 54.95,
+          "currency": "NZD"
+        },
+        {
+          "type": "list",
+          "value": 0,
+          "currency": "USD"
+        }
+      ],
+      "barcode": "4454570531352",
+      "itemType": "sellable_product",
+      "attributes": [{
+          "id": "brand_code",
+          "name": "Brand Code",
+          "value": "KORN"
+        },
+        {
+          "id": "colour",
+          "name": "Colour",
+          "value": "Black"
+        },
+        {
+          "id": "size",
+          "name": "Size",
+          "value": "2XL"
+        },
+        {
+          "id": "brand_name",
+          "name": "Brand Name",
+          "value": "KORN"
+        },
+        {
+          "id": "department",
+          "name": "Department",
+          "value": "APPAREL"
+        },
+        {
+          "id": "category",
+          "name": "Category",
+          "value": "Pur. Mus/Style"
+        },
+        {
+          "id": "subcategory",
+          "name": "Sub-Category",
+          "value": "SS-Tees"
+        },
+        {
+          "id": "subsubcategory",
+          "name": "Sub-Sub-Category",
+          "value": "Mens"
+        }
+      ],
+      "categories": [{
+        "path": "Pur. Mus/Style > SS-Tees",
+        "type": "merch"
+      }],
+      "tariffCode": "Not Updated",
+      "supplierSku": "08000917B0012XL",
+      "parentProductId": "08000917-YB001",
+      "manufactuerOrigin": ""
+    },
+    "created_at": "2022-08-09 04:46:33",
+    "updated_at": "2022-08-09 04:46:33",
+    "source_system_id": "2677146"
+  },
+  {
+    "id": 8518,
+    "sku": "08000917B0013XL",
+    "parent_id": "08000917-YB001",
+    "variant_id": 42547124830407,
+    "variant_inventory_management": "shopify",
+    "variant_title": "3XL",
+    "vendor": "KORN",
+    "unified_model": {
+      "sku": "08000917B0013XL",
+      "name": "KORN TEE",
+      "prices": [{
+          "type": "list",
+          "value": 49.95,
+          "currency": "AUD"
+        },
+        {
+          "type": "list",
+          "value": 54.95,
+          "currency": "NZD"
+        },
+        {
+          "type": "list",
+          "value": 0,
+          "currency": "USD"
+        }
+      ],
+      "barcode": "4454570531369",
+      "itemType": "sellable_product",
+      "attributes": [{
+          "id": "brand_code",
+          "name": "Brand Code",
+          "value": "KORN"
+        },
+        {
+          "id": "colour",
+          "name": "Colour",
+          "value": "Black"
+        },
+        {
+          "id": "size",
+          "name": "Size",
+          "value": "3XL"
+        },
+        {
+          "id": "brand_name",
+          "name": "Brand Name",
+          "value": "KORN"
+        },
+        {
+          "id": "department",
+          "name": "Department",
+          "value": "APPAREL"
+        },
+        {
+          "id": "category",
+          "name": "Category",
+          "value": "Pur. Mus/Style"
+        },
+        {
+          "id": "subcategory",
+          "name": "Sub-Category",
+          "value": "SS-Tees"
+        },
+        {
+          "id": "subsubcategory",
+          "name": "Sub-Sub-Category",
+          "value": "Mens"
+        }
+      ],
+      "categories": [{
+        "path": "Pur. Mus/Style > SS-Tees",
+        "type": "merch"
+      }],
+      "tariffCode": "Not Updated",
+      "supplierSku": "08000917B0013XL",
+      "parentProductId": "08000917-YB001",
+      "manufactuerOrigin": ""
+    },
+    "created_at": "2022-08-09 04:47:52",
+    "updated_at": "2022-08-09 04:47:52",
+    "source_system_id": "2677147"
+  },
+  {
+    "id": 8453,
+    "sku": "08000917B001L",
+    "parent_id": "08000917-YB001",
+    "variant_id": 42547124732103,
+    "variant_inventory_management": "shopify",
+    "variant_title": "L",
+    "vendor": "KORN",
+    "unified_model": {
+      "sku": "08000917B001L",
+      "name": "KORN TEE",
+      "prices": [{
+          "type": "list",
+          "value": 49.95,
+          "currency": "AUD"
+        },
+        {
+          "type": "list",
+          "value": 54.95,
+          "currency": "NZD"
+        },
+        {
+          "type": "list",
+          "value": 0,
+          "currency": "USD"
+        }
+      ],
+      "barcode": "4454570531338",
+      "itemType": "sellable_product",
+      "attributes": [{
+          "id": "brand_code",
+          "name": "Brand Code",
+          "value": "KORN"
+        },
+        {
+          "id": "colour",
+          "name": "Colour",
+          "value": "Black"
+        },
+        {
+          "id": "size",
+          "name": "Size",
+          "value": "L"
+        },
+        {
+          "id": "brand_name",
+          "name": "Brand Name",
+          "value": "KORN"
+        },
+        {
+          "id": "department",
+          "name": "Department",
+          "value": "APPAREL"
+        },
+        {
+          "id": "category",
+          "name": "Category",
+          "value": "Pur. Mus/Style"
+        },
+        {
+          "id": "subcategory",
+          "name": "Sub-Category",
+          "value": "SS-Tees"
+        },
+        {
+          "id": "subsubcategory",
+          "name": "Sub-Sub-Category",
+          "value": "Mens"
+        }
+      ],
+      "categories": [{
+        "path": "Pur. Mus/Style > SS-Tees",
+        "type": "merch"
+      }],
+      "tariffCode": "Not Updated",
+      "supplierSku": "08000917B001L",
+      "parentProductId": "08000917-YB001",
+      "manufactuerOrigin": ""
+    },
+    "created_at": "2022-08-09 04:46:33",
+    "updated_at": "2022-08-09 04:46:33",
+    "source_system_id": "2677148"
+  },
+  {
+    "id": 8508,
+    "sku": "08000917B001M",
+    "parent_id": "08000917-YB001",
+    "variant_id": 42547124699335,
+    "variant_inventory_management": "shopify",
+    "variant_title": "M",
+    "vendor": "KORN",
+    "unified_model": {
+      "sku": "08000917B001M",
+      "name": "KORN TEE",
+      "prices": [{
+          "type": "list",
+          "value": 49.95,
+          "currency": "AUD"
+        },
+        {
+          "type": "list",
+          "value": 54.95,
+          "currency": "NZD"
+        },
+        {
+          "type": "list",
+          "value": 0,
+          "currency": "USD"
+        }
+      ],
+      "barcode": "2410197589017",
+      "itemType": "sellable_product",
+      "attributes": [{
+          "id": "brand_code",
+          "name": "Brand Code",
+          "value": "KORN"
+        },
+        {
+          "id": "colour",
+          "name": "Colour",
+          "value": "Black"
+        },
+        {
+          "id": "size",
+          "name": "Size",
+          "value": "M"
+        },
+        {
+          "id": "brand_name",
+          "name": "Brand Name",
+          "value": "KORN"
+        },
+        {
+          "id": "department",
+          "name": "Department",
+          "value": "APPAREL"
+        },
+        {
+          "id": "category",
+          "name": "Category",
+          "value": "Pur. Mus/Style"
+        },
+        {
+          "id": "subcategory",
+          "name": "Sub-Category",
+          "value": "SS-Tees"
+        },
+        {
+          "id": "subsubcategory",
+          "name": "Sub-Sub-Category",
+          "value": "Mens"
+        }
+      ],
+      "categories": [{
+        "path": "Pur. Mus/Style > SS-Tees",
+        "type": "merch"
+      }],
+      "tariffCode": "Not Updated",
+      "supplierSku": "08000917B001M",
+      "parentProductId": "08000917-YB001",
+      "manufactuerOrigin": ""
+    },
+    "created_at": "2022-08-09 04:47:39",
+    "updated_at": "2022-08-18 03:41:06",
+    "source_system_id": "2677149"
+  },
+  {
+    "id": 8523,
+    "sku": "08000917B001S",
+    "parent_id": "08000917-YB001",
+    "variant_id": 42547124666567,
+    "variant_inventory_management": "shopify",
+    "variant_title": "S",
+    "vendor": "KORN",
+    "unified_model": {
+      "sku": "08000917B001S",
+      "name": "KORN TEE",
+      "prices": [{
+          "type": "list",
+          "value": 49.95,
+          "currency": "AUD"
+        },
+        {
+          "type": "list",
+          "value": 54.95,
+          "currency": "NZD"
+        },
+        {
+          "type": "list",
+          "value": 0,
+          "currency": "USD"
+        }
+      ],
+      "barcode": "4454570531314",
+      "itemType": "sellable_product",
+      "attributes": [{
+          "id": "brand_code",
+          "name": "Brand Code",
+          "value": "KORN"
+        },
+        {
+          "id": "colour",
+          "name": "Colour",
+          "value": "Black"
+        },
+        {
+          "id": "size",
+          "name": "Size",
+          "value": "S"
+        },
+        {
+          "id": "brand_name",
+          "name": "Brand Name",
+          "value": "KORN"
+        },
+        {
+          "id": "department",
+          "name": "Department",
+          "value": "APPAREL"
+        },
+        {
+          "id": "category",
+          "name": "Category",
+          "value": "Pur. Mus/Style"
+        },
+        {
+          "id": "subcategory",
+          "name": "Sub-Category",
+          "value": "SS-Tees"
+        },
+        {
+          "id": "subsubcategory",
+          "name": "Sub-Sub-Category",
+          "value": "Mens"
+        }
+      ],
+      "categories": [{
+        "path": "Pur. Mus/Style > SS-Tees",
+        "type": "merch"
+      }],
+      "tariffCode": "Not Updated",
+      "supplierSku": "08000917B001S",
+      "parentProductId": "08000917-YB001",
+      "manufactuerOrigin": ""
+    },
+    "created_at": "2022-08-09 04:47:52",
+    "updated_at": "2022-08-09 04:47:52",
+    "source_system_id": "2677150"
+  },
+  {
+    "id": 8456,
+    "sku": "08000917B001XL",
+    "parent_id": "08000917-YB001",
+    "variant_id": 42547124764871,
+    "variant_inventory_management": "shopify",
+    "variant_title": "XL",
+    "vendor": "KORN",
+    "unified_model": {
+      "sku": "08000917B001XL",
+      "name": "KORN TEE",
+      "prices": [{
+          "type": "list",
+          "value": 49.95,
+          "currency": "AUD"
+        },
+        {
+          "type": "list",
+          "value": 54.95,
+          "currency": "NZD"
+        },
+        {
+          "type": "list",
+          "value": 0,
+          "currency": "USD"
+        }
+      ],
+      "barcode": "4454570531345",
+      "itemType": "sellable_product",
+      "attributes": [{
+          "id": "brand_code",
+          "name": "Brand Code",
+          "value": "KORN"
+        },
+        {
+          "id": "colour",
+          "name": "Colour",
+          "value": "Black"
+        },
+        {
+          "id": "size",
+          "name": "Size",
+          "value": "XL"
+        },
+        {
+          "id": "brand_name",
+          "name": "Brand Name",
+          "value": "KORN"
+        },
+        {
+          "id": "department",
+          "name": "Department",
+          "value": "APPAREL"
+        },
+        {
+          "id": "category",
+          "name": "Category",
+          "value": "Pur. Mus/Style"
+        },
+        {
+          "id": "subcategory",
+          "name": "Sub-Category",
+          "value": "SS-Tees"
+        },
+        {
+          "id": "subsubcategory",
+          "name": "Sub-Sub-Category",
+          "value": "Mens"
+        }
+      ],
+      "categories": [{
+        "path": "Pur. Mus/Style > SS-Tees",
+        "type": "merch"
+      }],
+      "tariffCode": "Not Updated",
+      "supplierSku": "08000917B001XL",
+      "parentProductId": "08000917-YB001",
+      "manufactuerOrigin": ""
+    },
+    "created_at": "2022-08-09 04:46:33",
+    "updated_at": "2022-08-09 04:46:33",
+    "source_system_id": "2677151"
+  },
+  {
+    "id": 8457,
+    "sku": "08000924B0012XL",
+    "parent_id": "08000924-YB001",
+    "variant_id": 41622997434518,
+    "variant_inventory_management": "shopify",
+    "variant_title": "2XL",
+    "vendor": "GUCCI MANE",
+    "unified_model": {
+      "sku": "08000924B0012XL",
+      "name": "SO ICY SUMMER TEE",
+      "prices": [{
+          "type": "list",
+          "value": 49.95,
+          "currency": "AUD"
+        },
+        {
+          "type": "list",
+          "value": 54.95,
+          "currency": "NZD"
+        },
+        {
+          "type": "list",
+          "value": 0,
+          "currency": "USD"
+        }
+      ],
+      "barcode": "4454570531772",
+      "itemType": "sellable_product",
+      "attributes": [{
+          "id": "brand_code",
+          "name": "Brand Code",
+          "value": "GUCMA"
+        },
+        {
+          "id": "colour",
+          "name": "Colour",
+          "value": "Black"
+        },
+        {
+          "id": "size",
+          "name": "Size",
+          "value": "2XL"
+        },
+        {
+          "id": "brand_name",
+          "name": "Brand Name",
+          "value": "GUCCI MANE"
+        },
+        {
+          "id": "department",
+          "name": "Department",
+          "value": "APPAREL"
+        },
+        {
+          "id": "category",
+          "name": "Category",
+          "value": "Pur. Mus/Style"
+        },
+        {
+          "id": "subcategory",
+          "name": "Sub-Category",
+          "value": "SS-Tees"
+        },
+        {
+          "id": "subsubcategory",
+          "name": "Sub-Sub-Category",
+          "value": "Mens"
+        }
+      ],
+      "categories": [{
+        "path": "Pur. Mus/Style > SS-Tees",
+        "type": "merch"
+      }],
+      "tariffCode": "Not Updated",
+      "supplierSku": "08000924B0012XL",
+      "parentProductId": "08000924-YB001",
+      "manufactuerOrigin": ""
+    },
+    "created_at": "2022-08-09 04:46:44",
+    "updated_at": "2022-08-09 04:46:44",
+    "source_system_id": "2500530"
+  },
+  {
+    "id": 8458,
+    "sku": "08000924B0013XL",
+    "parent_id": "08000924-YB001",
+    "variant_id": 41622997467286,
+    "variant_inventory_management": "shopify",
+    "variant_title": "3XL",
+    "vendor": "GUCCI MANE",
+    "unified_model": {
+      "sku": "08000924B0013XL",
+      "name": "SO ICY SUMMER TEE",
+      "prices": [{
+          "type": "list",
+          "value": 49.95,
+          "currency": "AUD"
+        },
+        {
+          "type": "list",
+          "value": 54.95,
+          "currency": "NZD"
+        },
+        {
+          "type": "list",
+          "value": 0,
+          "currency": "USD"
+        }
+      ],
+      "barcode": "4454570531789",
+      "itemType": "sellable_product",
+      "attributes": [{
+          "id": "brand_code",
+          "name": "Brand Code",
+          "value": "GUCMA"
+        },
+        {
+          "id": "colour",
+          "name": "Colour",
+          "value": "Black"
+        },
+        {
+          "id": "size",
+          "name": "Size",
+          "value": "3XL"
+        },
+        {
+          "id": "brand_name",
+          "name": "Brand Name",
+          "value": "GUCCI MANE"
+        },
+        {
+          "id": "department",
+          "name": "Department",
+          "value": "APPAREL"
+        },
+        {
+          "id": "category",
+          "name": "Category",
+          "value": "Pur. Mus/Style"
+        },
+        {
+          "id": "subcategory",
+          "name": "Sub-Category",
+          "value": "SS-Tees"
+        },
+        {
+          "id": "subsubcategory",
+          "name": "Sub-Sub-Category",
+          "value": "Mens"
+        }
+      ],
+      "categories": [{
+        "path": "Pur. Mus/Style > SS-Tees",
+        "type": "merch"
+      }],
+      "tariffCode": "Not Updated",
+      "supplierSku": "08000924B0013XL",
+      "parentProductId": "08000924-YB001",
+      "manufactuerOrigin": ""
+    },
+    "created_at": "2022-08-09 04:46:44",
+    "updated_at": "2022-08-09 04:46:44",
+    "source_system_id": "2677152"
+  },
+  {
+    "id": 8464,
+    "sku": "08000924B001L",
+    "parent_id": "08000924-YB001",
+    "variant_id": 41622997368982,
+    "variant_inventory_management": "shopify",
+    "variant_title": "L",
+    "vendor": "GUCCI MANE",
+    "unified_model": {
+      "sku": "08000924B001L",
+      "name": "SO ICY SUMMER TEE",
+      "prices": [{
+          "type": "list",
+          "value": 49.95,
+          "currency": "AUD"
+        },
+        {
+          "type": "list",
+          "value": 54.95,
+          "currency": "NZD"
+        },
+        {
+          "type": "list",
+          "value": 0,
+          "currency": "USD"
+        }
+      ],
+      "barcode": "4454570531758",
+      "itemType": "sellable_product",
+      "attributes": [{
+          "id": "brand_code",
+          "name": "Brand Code",
+          "value": "GUCMA"
+        },
+        {
+          "id": "colour",
+          "name": "Colour",
+          "value": "Black"
+        },
+        {
+          "id": "size",
+          "name": "Size",
+          "value": "L"
+        },
+        {
+          "id": "brand_name",
+          "name": "Brand Name",
+          "value": "GUCCI MANE"
+        },
+        {
+          "id": "department",
+          "name": "Department",
+          "value": "APPAREL"
+        },
+        {
+          "id": "category",
+          "name": "Category",
+          "value": "Pur. Mus/Style"
+        },
+        {
+          "id": "subcategory",
+          "name": "Sub-Category",
+          "value": "SS-Tees"
+        },
+        {
+          "id": "subsubcategory",
+          "name": "Sub-Sub-Category",
+          "value": "Mens"
+        }
+      ],
+      "categories": [{
+        "path": "Pur. Mus/Style > SS-Tees",
+        "type": "merch"
+      }],
+      "tariffCode": "Not Updated",
+      "supplierSku": "08000924B001L",
+      "parentProductId": "08000924-YB001",
+      "manufactuerOrigin": ""
+    },
+    "created_at": "2022-08-09 04:46:44",
+    "updated_at": "2022-08-09 04:46:44",
+    "source_system_id": "2485950"
+  },
+  {
+    "id": 8517,
+    "sku": "08000924B001M",
+    "parent_id": "08000924-YB001",
+    "variant_id": 41622997336214,
+    "variant_inventory_management": "shopify",
+    "variant_title": "M",
+    "vendor": "GUCCI MANE",
+    "unified_model": {
+      "sku": "08000924B001M",
+      "name": "SO ICY SUMMER TEE",
+      "prices": [{
+          "type": "list",
+          "value": 49.95,
+          "currency": "AUD"
+        },
+        {
+          "type": "list",
+          "value": 54.95,
+          "currency": "NZD"
+        },
+        {
+          "type": "list",
+          "value": 0,
+          "currency": "USD"
+        }
+      ],
+      "barcode": "4454570531741",
+      "itemType": "sellable_product",
+      "attributes": [{
+          "id": "brand_code",
+          "name": "Brand Code",
+          "value": "GUCMA"
+        },
+        {
+          "id": "colour",
+          "name": "Colour",
+          "value": "Black"
+        },
+        {
+          "id": "size",
+          "name": "Size",
+          "value": "M"
+        },
+        {
+          "id": "brand_name",
+          "name": "Brand Name",
+          "value": "GUCCI MANE"
+        },
+        {
+          "id": "department",
+          "name": "Department",
+          "value": "APPAREL"
+        },
+        {
+          "id": "category",
+          "name": "Category",
+          "value": "Pur. Mus/Style"
+        },
+        {
+          "id": "subcategory",
+          "name": "Sub-Category",
+          "value": "SS-Tees"
+        },
+        {
+          "id": "subsubcategory",
+          "name": "Sub-Sub-Category",
+          "value": "Mens"
+        }
+      ],
+      "categories": [{
+        "path": "Pur. Mus/Style > SS-Tees",
+        "type": "merch"
+      }],
+      "tariffCode": "Not Updated",
+      "supplierSku": "08000924B001M",
+      "parentProductId": "08000924-YB001",
+      "manufactuerOrigin": ""
+    },
+    "created_at": "2022-08-09 04:47:52",
+    "updated_at": "2022-08-09 04:47:52",
+    "source_system_id": "2677153"
+  },
+  {
+    "id": 8462,
+    "sku": "08000924B001S",
+    "parent_id": "08000924-YB001",
+    "variant_id": 41622997303446,
+    "variant_inventory_management": "shopify",
+    "variant_title": "S",
+    "vendor": "GUCCI MANE",
+    "unified_model": {
+      "sku": "08000924B001S",
+      "name": "SO ICY SUMMER TEE",
+      "prices": [{
+          "type": "list",
+          "value": 49.95,
+          "currency": "AUD"
+        },
+        {
+          "type": "list",
+          "value": 54.95,
+          "currency": "NZD"
+        },
+        {
+          "type": "list",
+          "value": 0,
+          "currency": "USD"
+        }
+      ],
+      "barcode": "4454570531734",
+      "itemType": "sellable_product",
+      "attributes": [{
+          "id": "brand_code",
+          "name": "Brand Code",
+          "value": "GUCMA"
+        },
+        {
+          "id": "colour",
+          "name": "Colour",
+          "value": "Black"
+        },
+        {
+          "id": "size",
+          "name": "Size",
+          "value": "S"
+        },
+        {
+          "id": "brand_name",
+          "name": "Brand Name",
+          "value": "GUCCI MANE"
+        },
+        {
+          "id": "department",
+          "name": "Department",
+          "value": "APPAREL"
+        },
+        {
+          "id": "category",
+          "name": "Category",
+          "value": "Pur. Mus/Style"
+        },
+        {
+          "id": "subcategory",
+          "name": "Sub-Category",
+          "value": "SS-Tees"
+        },
+        {
+          "id": "subsubcategory",
+          "name": "Sub-Sub-Category",
+          "value": "Mens"
+        }
+      ],
+      "categories": [{
+        "path": "Pur. Mus/Style > SS-Tees",
+        "type": "merch"
+      }],
+      "tariffCode": "Not Updated",
+      "supplierSku": "08000924B001S",
+      "parentProductId": "08000924-YB001",
+      "manufactuerOrigin": ""
+    },
+    "created_at": "2022-08-09 04:46:44",
+    "updated_at": "2022-08-09 04:46:44",
+    "source_system_id": "2485951"
+  },
+  {
+    "id": 8466,
+    "sku": "08000924B001XL",
+    "parent_id": "08000924-YB001",
+    "variant_id": 41622997401750,
+    "variant_inventory_management": "shopify",
+    "variant_title": "XL",
+    "vendor": "GUCCI MANE",
+    "unified_model": {
+      "sku": "08000924B001XL",
+      "name": "SO ICY SUMMER TEE",
+      "prices": [{
+          "type": "list",
+          "value": 49.95,
+          "currency": "AUD"
+        },
+        {
+          "type": "list",
+          "value": 54.95,
+          "currency": "NZD"
+        },
+        {
+          "type": "list",
+          "value": 0,
+          "currency": "USD"
+        }
+      ],
+      "barcode": "4454570531765",
+      "itemType": "sellable_product",
+      "attributes": [{
+          "id": "brand_code",
+          "name": "Brand Code",
+          "value": "GUCMA"
+        },
+        {
+          "id": "colour",
+          "name": "Colour",
+          "value": "Black"
+        },
+        {
+          "id": "size",
+          "name": "Size",
+          "value": "XL"
+        },
+        {
+          "id": "brand_name",
+          "name": "Brand Name",
+          "value": "GUCCI MANE"
+        },
+        {
+          "id": "department",
+          "name": "Department",
+          "value": "APPAREL"
+        },
+        {
+          "id": "category",
+          "name": "Category",
+          "value": "Pur. Mus/Style"
+        },
+        {
+          "id": "subcategory",
+          "name": "Sub-Category",
+          "value": "SS-Tees"
+        },
+        {
+          "id": "subsubcategory",
+          "name": "Sub-Sub-Category",
+          "value": "Mens"
+        }
+      ],
+      "categories": [{
+        "path": "Pur. Mus/Style > SS-Tees",
+        "type": "merch"
+      }],
+      "tariffCode": "Not Updated",
+      "supplierSku": "08000924B001XL",
+      "parentProductId": "08000924-YB001",
+      "manufactuerOrigin": ""
+    },
+    "created_at": "2022-08-09 04:46:44",
+    "updated_at": "2022-08-09 04:46:44",
+    "source_system_id": "2537191"
+  }
+]

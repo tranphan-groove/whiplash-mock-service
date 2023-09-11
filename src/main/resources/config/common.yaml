@@ -1,0 +1,49 @@
+object-store:
+  ttl: "30" #mins
+  
+http:
+  timeout: "600000" #milisecs
+
+jdbc:
+  reconnection: 
+    attemps: "2"
+    frequency: "2000"
+  timeout:
+    interval: "10000"
+  pool:
+    maxPoolSize: "30"
+    minPoolSize: "1"
+    maxWait: "60000"
+    preparedStatementCacheSize: "0"
+    increment: "1"
+    maxPreparedStatement: "0"
+    maxIdle: "15"
+  
+json.logger:
+## Priority/Levels of logging  
+  priority:
+    warn: WARN
+    error: ERROR
+    info: INFO
+    debug: DEBUG
+            
+## Following are some sample Keyfields for better log filtering. Modify the keyfields
+## depending your application needs.           
+  keyFields:
+    keyField01: "product_id"
+    keyField02: "parent_id"
+    keyField03: "customer_id"
+    keyField04: "sku"
+
+## tracePoint/Stages of the application at which you may want to log.    
+  tracePoint:
+    start: START
+    beforeTransformation: BEFORE_TRANSFORMATION
+    afterTransformation: AFTER_TRANSFORMATION
+    beforeRequest: BEFORE_REQUEST
+    afterRequest: AFTER_REQUEST
+    enterFlow: ENTER_FLOW
+    exitFlow: EXIT_FLOW
+    end: END
+    exception: EXCEPTION
+    processing: PROCESSING
